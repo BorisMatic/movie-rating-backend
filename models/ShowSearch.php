@@ -10,6 +10,8 @@ use yii\db\Query;
 class ShowSearch extends Show
 {
     public $search_term;
+    public $min_rating;
+    public $min_year;
     public $actors;
 
     public function rules()
@@ -18,8 +20,8 @@ class ShowSearch extends Show
             [['title'], 'required'],
             [['title', 'description', 'image_url', 'description', 'search_term', 'type'], 'string'],
             [['total_votes', 'total_points', 'rating', 'id'], 'number'],
-            ['release_date', 'date'],
-            ['actors',  'safe']
+            ['release_date', 'safe'],
+            [['actors', 'min_rating', 'min_year'],  'safe']
         ];
     }
 
@@ -32,7 +34,7 @@ class ShowSearch extends Show
         $provider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 5,
+                'pageSize' => 10,
             ],
         ]);
 
@@ -47,6 +49,15 @@ class ShowSearch extends Show
             'type' => $this->type,
             'rating' => $this->rating
         ]);
+
+
+        if(!empty($this->min_rating)) {
+            $query->andFilterWhere(['>=', 'rating', $this->min_rating]);
+        }
+
+        if(!empty($this->min_year)) {
+            $query->andFilterWhere(['>=', 'release_date', strtotime($this->min_rating)]);
+        }
 
         $query->orderBy(['rating' => SORT_DESC]);
 
