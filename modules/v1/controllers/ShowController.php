@@ -37,7 +37,7 @@ class ShowController extends Controller
                     'Origin' => ['http://localhost:4200'],
                     'Access-Control-Allow-Origin' => ['*'],
                     'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'PATCH'],
-                    'Access-Control-Request-Headers' => ['X-Wsse', 'Content-Type'],
+                    'Access-Control-Request-Headers' => ['*'],
                     'Access-Control-Allow-Credentials' => true,
                     'Access-Control-Max-Age' => 3600,
                     'Access-Control-Expose-Headers' => ['*'],
